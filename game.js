@@ -36,6 +36,7 @@ startGame = ()=>{
     emptyGrid();
     randomFill();
     randomFill();
+    console.table(grid);
 }
 
 control = (x)=>{
@@ -52,12 +53,14 @@ control = (x)=>{
                 console.table(grid);
                 break;
             case 'd':
+                downOperation();
+                checkFinish(pre_grid,grid);
                 console.table(grid);
-                console.log(x);
                 break;
             case 'u':
+                upOperation();
+                checkFinish(pre_grid,grid);
                 console.table(grid);
-                console.log(x);
                 break;
             default : 
                 console.log(`Enter alphabet 'l', 'r', 'd', 'u' only`);
@@ -79,6 +82,18 @@ checkFinish = (pre_grid,next_grid)=>{
         if(changeOccur(pre_grid,next_grid))
             randomFill();     
     }
+}
+
+upOperation = ()=>{
+    grid = rotateAntiClockWise();
+    LeftOperation();
+    grid = rotateClockWise();
+}
+
+downOperation = ()=>{
+    grid = rotateClockWise();
+    LeftOperation();
+    grid = rotateAntiClockWise();
 }
 
 LeftOperation = ()=>{
@@ -119,6 +134,30 @@ horizontal_image = ()=>{
         flipGrid.push(grid[i].reverse());
     }
     return flipGrid;
+}
+
+rotateClockWise = ()=>{
+    let rotatedGrid = [];
+    for(let i=0; i<grid_size; i++){
+        let newRow = [];
+        for(let j=0; j<grid_size; j++){
+            newRow.push(grid[j][i]);
+        }
+        rotatedGrid.push(newRow.reverse());
+    }
+    return rotatedGrid;
+}
+
+rotateAntiClockWise = ()=>{
+    let rotatedGrid = [];
+    for(let i=grid_size-1; i>=0; i--){
+        let newRow = [];
+        for(let j=0; j<grid_size; j++){
+            newRow.push(grid[j][i]);
+        }
+        rotatedGrid.push(newRow);
+    }
+    return rotatedGrid;
 }
 
 shiftRowLeft = (row)=>{
