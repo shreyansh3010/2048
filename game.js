@@ -69,18 +69,14 @@ control = (x)=>{
 }
 
 checkFinish = (pre_grid,next_grid)=>{
+    if(changeOccur(pre_grid,next_grid)){
+        randomFill();
+    }
     if(checkWin()){
         console.log('YOU WIN :)');
-        startGame();
     }
-    else if(checkGameOver()){
+    if(checkGameOver()){
         console.log('GAME OVER !');
-        startGame();
-    }
-    else{
-        console.log('Continue...');
-        if(changeOccur(pre_grid,next_grid))
-            randomFill();     
     }
 }
 
@@ -195,12 +191,15 @@ checkWin = ()=>{
 checkGameOver = ()=>{
     for(let i=0; i<grid_size; i++){
         for(let j=0; j<grid_size; j++){
+            if(grid[i][j] == 0){
+                return false;
+            }
             if(i<grid_size-1){
-                if(grid[i][j] == grid[i][j+1])
+                if(grid[i][j] == grid[i+1][j])
                     return false;
             }
             if(j<grid_size-1){
-                if(grid[i][j] == grid[i+1][j])
+                if(grid[i][j] == grid[i][j+1])
                     return false;
             }
         }
