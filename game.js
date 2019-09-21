@@ -26,6 +26,7 @@ randomFill = ()=>{
 
 startGame = ()=>{
     console.log('Starting new game.....');
+    console.log(`Controls for the game\n-> 'control(1)' for LEFT\n-> 'control(2)' for RIGHT\n-> 'control(3)' for UP\n-> 'control(4)' for DOWN`);
     grid = [];
     emptyGrid();
     randomFill();
@@ -36,23 +37,23 @@ startGame = ()=>{
 control = (x)=>{
     let pre_grid = gridImage();
         switch(x){
-            case 'l':
+            case 1:
                 LeftOperation();
                 checkFinish(pre_grid,grid);
                 console.table(grid);
                 break;
-            case 'r':
+            case 2:
                 rightOperation();
                 checkFinish(pre_grid,grid);
                 console.table(grid);
                 break;
-            case 'd':
-                downOperation();
+            case 3:
+                upOperation();
                 checkFinish(pre_grid,grid);
                 console.table(grid);
                 break;
-            case 'u':
-                upOperation();
+            case 4:
+                downOperation();
                 checkFinish(pre_grid,grid);
                 console.table(grid);
                 break;
