@@ -8,14 +8,6 @@ emptyGrid = ()=>{
     }
 }
 
-showGird = () =>{
-    for(let i=0; i<grid_size; i++){
-        for(let j=0; j<grid_size; j++){
-            
-        }
-    }
-}
-
 randomFill = ()=>{
     let zero_coordinate_array = [];
     for(let i=0; i<grid_size; i++){
@@ -27,7 +19,9 @@ randomFill = ()=>{
     }
     let randomCell = zero_coordinate_array[Math.floor(Math.random()*zero_coordinate_array.length)];
     let randomVaue = Math.random() > 0.5 ? 4 : 2;
-    grid[randomCell[0]][randomCell[1]] = randomVaue;
+    if(randomCell.length > 0){
+        grid[randomCell[0]][randomCell[1]] = randomVaue;
+    }
 }
 
 startGame = ()=>{
