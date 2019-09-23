@@ -1,13 +1,20 @@
+/*
+    Declear the constan values
+    Play up to 4096 instead of 2048 by 
+    changing the grid_size to 8 and max_val to 4096
+*/
 const max_val = 2048;
 const grid_size = 4;
 var grid = [];
 
+//Filling the global grid with zero's
 emptyGrid = ()=>{
     for(let i=0; i<grid_size; i++){
         grid.push(new Array(grid_size).fill(0));
     }
 }
 
+//Selecting the position to be filled by 2 or 4
 randomFill = ()=>{
     let zero_coordinate_array = [];
     for(let i=0; i<grid_size; i++){
@@ -24,6 +31,7 @@ randomFill = ()=>{
     }
 }
 
+//Initializing the game
 startGame = ()=>{
     console.log('Starting new game.....');
     console.log(`Controls for the game\n-> 'control(1)' for LEFT\n-> 'control(2)' for RIGHT\n-> 'control(3)' for UP\n-> 'control(4)' for DOWN`);
@@ -34,6 +42,7 @@ startGame = ()=>{
     console.table(grid);
 }
 
+//Do action based on user input
 control = (x)=>{
     let pre_grid = gridImage();
         switch(x){
@@ -63,6 +72,7 @@ control = (x)=>{
         }
 }
 
+//check the terminating conditions
 checkFinish = (pre_grid,next_grid)=>{
     if(changeOccur(pre_grid,next_grid)){
         randomFill();
@@ -75,18 +85,21 @@ checkFinish = (pre_grid,next_grid)=>{
     }
 }
 
+//shifting operation in UP direction
 upOperation = ()=>{
     grid = rotateAntiClockWise();
     LeftOperation();
     grid = rotateClockWise();
 }
 
+//shifting operation in DOWN direction
 downOperation = ()=>{
     grid = rotateClockWise();
     LeftOperation();
     grid = rotateAntiClockWise();
 }
 
+//shifting operation in LEFT direction
 LeftOperation = ()=>{
     for(let i=0; i<grid_size; i++){
         let shiftedRow = shiftRowLeft(grid[i]);
@@ -94,12 +107,14 @@ LeftOperation = ()=>{
     }
 }
 
+//shifting operation in RIGHT direction
 rightOperation = ()=>{
     grid = horizontal_image();
     LeftOperation();
     grid = horizontal_image();
 }
 
+//Returning the copy of the grid
 gridImage = ()=>{
     let gridImg = [];
     for(let i=0; i<grid_size; i++){
@@ -108,6 +123,7 @@ gridImage = ()=>{
     return gridImg;
 }
 
+//Compare the grid before and after operation
 changeOccur = (pre_grid,next_grid)=>{
     for(let i=0; i<grid_size; i++){
         for(let j=0; j<grid_size; j++){
@@ -119,6 +135,7 @@ changeOccur = (pre_grid,next_grid)=>{
     return false;
 }
 
+//Create a side by side image
 horizontal_image = ()=>{
     let flipGrid = [];
     for(let i=0; i<grid_size; i++){
@@ -127,6 +144,7 @@ horizontal_image = ()=>{
     return flipGrid;
 }
 
+//Rotate the entire global grid clockWise 90 degree
 rotateClockWise = ()=>{
     let rotatedGrid = [];
     for(let i=0; i<grid_size; i++){
@@ -139,6 +157,7 @@ rotateClockWise = ()=>{
     return rotatedGrid;
 }
 
+//Rotate the entire global grid anitclockWise 90 degree
 rotateAntiClockWise = ()=>{
     let rotatedGrid = [];
     for(let i=grid_size-1; i>=0; i--){
@@ -151,6 +170,7 @@ rotateAntiClockWise = ()=>{
     return rotatedGrid;
 }
 
+//Push all the values in a row towards left
 shiftRowLeft = (row)=>{
     let non_Zero_arry = row.filter((item)=>{
         if(item > 0){
@@ -161,6 +181,7 @@ shiftRowLeft = (row)=>{
     return non_Zero_arry;
 }
 
+//Add the adjacent vales if equal
 rowAddition = (row)=>{
     for(let i=0; i<grid_size-1; i++){
         if(row[i] == row[i+1]){
@@ -171,8 +192,7 @@ rowAddition = (row)=>{
     return shiftRowLeft(row);
 }
 
-
-
+//Check the win condition
 checkWin = ()=>{
     for(let i=0; i<grid_size; i++){
         for(let j=0; j<grid_size; j++){
@@ -183,6 +203,7 @@ checkWin = ()=>{
     return false;
 }
 
+//Check the game over condition
 checkGameOver = ()=>{
     for(let i=0; i<grid_size; i++){
         for(let j=0; j<grid_size; j++){
@@ -202,4 +223,5 @@ checkGameOver = ()=>{
     return true;
 }
 
+//Starting the game
 startGame();
